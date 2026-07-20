@@ -9,7 +9,97 @@ const GAME_HOST =
 let games = [];
 
 
-// Load games from GitHub
+
+
+
+// LOGIN SYSTEM
+
+window.onload = function(){
+
+
+let savedUser =
+localStorage.getItem("htemulatorUser");
+
+
+
+if(savedUser){
+
+
+document.getElementById("login").style.display="none";
+
+document.getElementById("launcher").style.display="block";
+
+
+}
+
+else{
+
+
+document.getElementById("login").style.display="block";
+
+document.getElementById("launcher").style.display="none";
+
+
+}
+
+
+};
+
+
+
+
+
+function login(){
+
+
+let username =
+document.getElementById("username").value;
+
+
+let password =
+document.getElementById("password").value;
+
+
+
+if(username && password){
+
+
+localStorage.setItem(
+"htemulatorUser",
+username
+);
+
+
+
+document.getElementById("login").style.display="none";
+
+
+document.getElementById("launcher").style.display="block";
+
+
+
+}
+
+else{
+
+
+document.getElementById("loginMessage").innerText =
+"Please enter a username and password";
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+// LOAD GAMES
+
 
 fetch(GAME_DATABASE)
 
@@ -17,95 +107,121 @@ fetch(GAME_DATABASE)
 
 .then(data => {
 
-    games = data;
 
-    displayGames(games);
+games = data;
+
+
+displayGames(games);
+
 
 })
 
+
 .catch(error => {
 
-    console.error("Could not load games:", error);
+
+console.error(
+"Could not load games:",
+error
+);
+
 
 });
 
 
 
 
-// Display game cards
+
+
+
+// DISPLAY GAMES
+
 
 function displayGames(list){
 
-    const container = document.getElementById("games");
 
-    container.innerHTML = "";
-
-
-    list.forEach(game => {
+const container =
+document.getElementById("games");
 
 
-        let card = document.createElement("div");
-
-        card.className = "card";
+container.innerHTML="";
 
 
-        card.innerHTML = `
 
-            <img src="${game.thumbnail}">
-
-            <h3>${game.name}</h3>
-
-            <p>
-            Created by ${game.creator}
-            </p>
-
-            <small>
-            ${game.category || "Game"}
-            </small>
-
-        `;
+list.forEach(game => {
 
 
-        card.onclick = () => {
 
-            openGame(game);
-
-        };
+let card =
+document.createElement("div");
 
 
-        container.appendChild(card);
+card.className="card";
 
 
-    });
+
+card.innerHTML = `
+
+<img src="${game.thumbnail}">
+
+<h3>${game.name}</h3>
+
+<p>
+Created by ${game.creator}
+</p>
+
+<small>
+${game.category || "Game"}
+</small>
+
+`;
+
+
+
+card.onclick = () => {
+
+openGame(game);
+
+};
+
+
+
+container.appendChild(card);
+
+
+
+});
+
 
 }
 
 
 
 
-// Open selected game
+
+
+
+// OPEN GAME
+
 
 function openGame(game){
 
 
-    document.getElementById("launcher").style.display = "none";
+document.getElementById("launcher").style.display="none";
 
 
-    document.getElementById("player").style.display = "block";
-
-
-    document.getElementById("gameTitle").innerText =
-    game.name;
+document.getElementById("player").style.display="block";
 
 
 
-    let gameURL =
-    GAME_HOST + game.url;
+document.getElementById("gameTitle").innerText =
+game.name;
 
 
 
-    document.getElementById("gameFrame").src =
-    gameURL;
+document.getElementById("gameFrame").src =
+GAME_HOST + game.url;
+
 
 
 }
@@ -113,18 +229,22 @@ function openGame(game){
 
 
 
-// Close game
+
+
+
+// CLOSE GAME
+
 
 function closeGame(){
 
 
-    document.getElementById("launcher").style.display = "block";
+document.getElementById("launcher").style.display="block";
 
 
-    document.getElementById("player").style.display = "none";
+document.getElementById("player").style.display="none";
 
 
-    document.getElementById("gameFrame").src = "";
+document.getElementById("gameFrame").src="";
 
 
 }
@@ -132,31 +252,39 @@ function closeGame(){
 
 
 
-// Search system
+
+
+
+
+// SEARCH
+
 
 document
 .getElementById("search")
 .addEventListener("input", function(){
 
 
-    let search =
-    this.value.toLowerCase();
+
+let search =
+this.value.toLowerCase();
 
 
 
-    let filtered =
-    games.filter(game =>
+let filtered =
+games.filter(game =>
 
 
-        game.name
-        .toLowerCase()
-        .includes(search)
+game.name
+.toLowerCase()
+.includes(search)
 
 
-    );
+);
 
 
-    displayGames(filtered);
+
+displayGames(filtered);
+
 
 
 });
