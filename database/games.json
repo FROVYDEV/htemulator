@@ -1,0 +1,11 @@
+[
+    {
+        "name": "Test Game",
+        "creator": "FROVY",
+        "category": "Demo",
+        "description": "First HTEmulator game",
+        "thumbnail": "https://placehold.co/300x200",
+        "version": "1.0",
+        "url": "games/test-game/index.html"
+    }
+]
