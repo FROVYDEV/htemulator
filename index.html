@@ -15,6 +15,44 @@
 <body>
 
 
+<!-- LOGIN SCREEN -->
+
+<div id="login">
+
+<h1>htemulator</h1>
+
+<h2>Login</h2>
+
+
+<input 
+id="username"
+placeholder="Username"
+>
+
+
+<input 
+id="password"
+type="password"
+placeholder="Password"
+>
+
+
+<button onclick="login()">
+Login
+</button>
+
+
+<p id="loginMessage"></p>
+
+
+</div>
+
+
+
+
+
+<!-- GAME LAUNCHER -->
+
 <div id="launcher">
 
 
@@ -22,32 +60,25 @@
 
 <h1>htemulator</h1>
 
+
 <input 
 id="search"
-type="text"
 placeholder="Search games..."
-oninput="searchGames()"
 >
+
 
 </header>
 
 
-
-<section id="library">
 
 <h2>Game Library</h2>
 
 
 <div id="games">
 
-<div class="loading">
 Loading games...
-</div>
 
 </div>
-
-
-</section>
 
 
 </div>
@@ -55,11 +86,14 @@ Loading games...
 
 
 
+
+
+<!-- GAME PLAYER -->
 
 <div id="player">
 
 
-<button id="backButton" onclick="closeGame()">
+<button onclick="closeGame()">
 
 ← Back
 
@@ -67,30 +101,16 @@ Loading games...
 
 
 
-<h2 id="gameTitle">
-
-</h2>
+<h2 id="gameTitle"></h2>
 
 
-
-<div id="gameContainer">
 
 <iframe 
 id="gameFrame"
 allowfullscreen>
 </iframe>
 
-</div>
 
-
-</div>
-
-
-
-
-<div id="loadingScreen">
-
-Loading HTEmulator...
 
 </div>
 
