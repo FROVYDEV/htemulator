@@ -36,10 +36,7 @@ fetch(GAME_DATABASE)
 
 function displayGames(list){
 
-
-    const container =
-    document.getElementById("games");
-
+    const container = document.getElementById("games");
 
     container.innerHTML = "";
 
@@ -47,9 +44,7 @@ function displayGames(list){
     list.forEach(game => {
 
 
-        let card =
-        document.createElement("div");
-
+        let card = document.createElement("div");
 
         card.className = "card";
 
@@ -83,7 +78,6 @@ function displayGames(list){
 
     });
 
-
 }
 
 
@@ -94,13 +88,13 @@ function displayGames(list){
 function openGame(game){
 
 
-    document.getElementById("games").style.display="none";
+    document.getElementById("launcher").style.display = "none";
 
 
-    document.getElementById("player").style.display="block";
+    document.getElementById("player").style.display = "block";
 
 
-    document.getElementById("title").innerText =
+    document.getElementById("gameTitle").innerText =
     game.name;
 
 
@@ -110,7 +104,7 @@ function openGame(game){
 
 
 
-    document.getElementById("game").src =
+    document.getElementById("gameFrame").src =
     gameURL;
 
 
@@ -124,17 +118,16 @@ function openGame(game){
 function closeGame(){
 
 
-    document.getElementById("games").style.display="flex";
+    document.getElementById("launcher").style.display = "block";
 
 
-    document.getElementById("player").style.display="none";
+    document.getElementById("player").style.display = "none";
 
 
-    document.getElementById("game").src="";
+    document.getElementById("gameFrame").src = "";
 
 
 }
-
 
 
 
@@ -163,9 +156,7 @@ document
     );
 
 
-
     displayGames(filtered);
-
 
 
 });
