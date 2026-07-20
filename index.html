@@ -7,6 +7,8 @@
 
 <link rel="stylesheet" href="style.css">
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 
 
@@ -22,21 +24,30 @@
 
 <input 
 id="search"
+type="text"
 placeholder="Search games..."
+oninput="searchGames()"
 >
 
 </header>
 
 
 
+<section id="library">
+
 <h2>Game Library</h2>
 
 
 <div id="games">
 
+<div class="loading">
 Loading games...
+</div>
 
 </div>
+
+
+</section>
 
 
 </div>
@@ -48,18 +59,38 @@ Loading games...
 <div id="player">
 
 
-<button onclick="closeGame()">
+<button id="backButton" onclick="closeGame()">
+
 ← Back
+
 </button>
 
 
-<h2 id="gameTitle"></h2>
 
+<h2 id="gameTitle">
+
+</h2>
+
+
+
+<div id="gameContainer">
 
 <iframe 
-id="gameFrame">
+id="gameFrame"
+allowfullscreen>
 </iframe>
 
+</div>
+
+
+</div>
+
+
+
+
+<div id="loadingScreen">
+
+Loading HTEmulator...
 
 </div>
 
