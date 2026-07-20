@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTEmulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="app">
+
+    <header>
+        <h1>HTEmulator</h1>
+
+        <input 
+            id="search"
+            placeholder="Search games..."
+        >
+    </header>
+
+
+    <section id="library">
+
+        <h2>Game Library</h2>
+
+        <div id="games"></div>
+
+    </section>
+
+
+    <section id="player" class="hidden">
+
+        <button onclick="closeGame()">
+            ← Back
+        </button>
+
+        <h2 id="gameTitle"></h2>
+
+        <iframe id="gameFrame"></iframe>
+
+    </section>
+
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
