@@ -37,13 +37,9 @@ measurementId: "G-5EYLCKLR91"
 
 const app = initializeApp(firebaseConfig);
 
-
 const auth = getAuth(app);
 
-
 const provider = new GoogleAuthProvider();
-
-
 
 
 
@@ -59,11 +55,39 @@ const whitelist = [
 
 
 
+function showLauncher(){
+
+const login = document.getElementById("login");
+
+const launcher = document.getElementById("launcher");
 
 
-document
-.getElementById("googleLogin")
-.onclick = async function(){
+if(login){
+
+login.style.display = "none";
+
+}
+
+
+if(launcher){
+
+launcher.style.display = "block";
+
+}
+
+}
+
+
+
+
+
+const googleLogin = document.getElementById("googleLogin");
+
+
+if(googleLogin){
+
+
+googleLogin.onclick = async function(){
 
 
 try{
@@ -73,7 +97,6 @@ const result = await signInWithPopup(
 auth,
 provider
 );
-
 
 
 const user = result.user;
@@ -91,17 +114,21 @@ showLauncher();
 else{
 
 
-document
-.getElementById("loginMessage")
-.innerText =
+const message = document.getElementById("loginMessage");
+
+
+if(message){
+
+message.innerText =
 "Your Google account is not whitelisted.";
+
+}
 
 
 await signOut(auth);
 
 
 }
-
 
 
 }
@@ -113,10 +140,14 @@ catch(error){
 console.error(error);
 
 
-document
-.getElementById("loginMessage")
-.innerText =
-error.message;
+const message = document.getElementById("loginMessage");
+
+
+if(message){
+
+message.innerText = error.message;
+
+}
 
 
 }
@@ -124,6 +155,8 @@ error.message;
 
 };
 
+
+}
 
 
 
@@ -158,29 +191,6 @@ signOut(auth);
 
 
 });
-
-
-
-
-
-
-
-
-function showLauncher(){
-
-
-document
-.getElementById("login")
-.style.display="none";
-
-
-document
-.getElementById("launcher")
-.style.display="block";
-
-
-}
-
 
 
 </script>
