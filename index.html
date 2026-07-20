@@ -1,276 +1,50 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTEmulator</title>
 
-<title>htemulator</title>
-
-<link rel="stylesheet" href="style.css">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
+    <div id="launcher">
 
-<!-- LOGIN -->
+        <h1>HTEmulator</h1>
 
-<div id="login">
+        <input 
+            type="text" 
+            id="search" 
+            placeholder="Search games..."
+        >
 
-<h1>htemulator</h1>
+        <div id="games">
+            <!-- Games load here -->
+        </div>
 
-<h2>Login</h2>
+    </div>
 
-<button id="googleLogin">
-Sign in with Google
-</button>
 
-<p id="loginMessage"></p>
+    <div id="player" style="display:none;">
 
-</div>
+        <h2 id="gameTitle"></h2>
 
+        <iframe 
+            id="gameFrame"
+            frameborder="0"
+            allowfullscreen>
+        </iframe>
 
+        <button onclick="showLauncher()">
+            Back
+        </button>
 
+    </div>
 
-<!-- LAUNCHER -->
 
-<div id="launcher" style="display:none;">
-
-
-<header>
-
-<h1>htemulator</h1>
-
-<input 
-id="search"
-placeholder="Search games..."
->
-
-</header>
-
-
-
-<h2>Game Library</h2>
-
-
-<div id="games">
-
-Loading games...
-
-</div>
-
-
-</div>
-
-
-
-
-
-<!-- GAME PLAYER -->
-
-<div id="player" style="display:none;">
-
-
-<button onclick="closeGame()">
-
-← Back
-
-</button>
-
-
-<h2 id="gameTitle"></h2>
-
-
-<iframe
-id="gameFrame"
-allowfullscreen>
-</iframe>
-
-
-</div>
-
-
-
-
-
-<!-- GAME LOADER -->
-
-<script src="script.js"></script>
-
-
-
-
-
-<!-- FIREBASE LOGIN -->
-
-<script type="module">
-
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-
-
-import {
-
-getAuth,
-
-GoogleAuthProvider,
-
-signInWithPopup,
-
-onAuthStateChanged,
-
-signOut
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
-
-
-
-
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyCsXrTr4G992g9b-q9g7IoXTCgSPjkuIls",
-
-authDomain: "htemulator-592b8.firebaseapp.com",
-
-projectId: "htemulator-592b8",
-
-storageBucket: "htemulator-592b8.firebasestorage.app",
-
-messagingSenderId: "530564298763",
-
-appId: "1:530564298763:web:8b1bd4c4662fb25141ef0e",
-
-measurementId: "G-5EYLCKLR91"
-
-};
-
-
-
-const app = initializeApp(firebaseConfig);
-
-
-const auth = getAuth(app);
-
-
-const provider = new GoogleAuthProvider();
-
-
-
-
-
-const whitelist = [
-
-"pandaporg359@gmail.com",
-
-"anti.s.creator@gmail.com"
-
-];
-
-
-
-
-
-function showLauncher(){
-
-document.getElementById("login").style.display="none";
-
-document.getElementById("launcher").style.display="block";
-
-}
-
-
-
-
-
-const button = document.getElementById("googleLogin");
-
-
-
-button.onclick = async ()=>{
-
-
-try{
-
-
-const result = await signInWithPopup(
-auth,
-provider
-);
-
-
-const user = result.user;
-
-
-
-if(whitelist.includes(user.email)){
-
-
-showLauncher();
-
-
-}
-
-else{
-
-
-document.getElementById("loginMessage").innerText =
-"Account not whitelisted.";
-
-
-await signOut(auth);
-
-
-}
-
-
-}
-
-catch(error){
-
-
-console.error(error);
-
-
-document.getElementById("loginMessage").innerText =
-error.message;
-
-
-}
-
-
-};
-
-
-
-
-
-
-
-onAuthStateChanged(auth,(user)=>{
-
-
-if(user && whitelist.includes(user.email)){
-
-
-showLauncher();
-
-
-}
-
-
-});
-
-
-
-</script>
-
+    <script src="script.js"></script>
 
 </body>
-
 </html>
