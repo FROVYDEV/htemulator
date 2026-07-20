@@ -1,140 +1,17 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-
-<title>htemulator</title>
-
-<link rel="stylesheet" href="style.css">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-</head>
-
-
-<body>
-
-
-<!-- LOGIN SCREEN -->
-
-<div id="login">
-
-<h1>htemulator</h1>
-
-<h2>Login</h2>
-
-<button id="googleLogin">
-Sign in with Google
-</button>
-
-
-<p id="loginMessage"></p>
-
-
-</div>
-
-
-
-
-
-<!-- GAME LAUNCHER -->
-
-<div id="launcher" style="display:none;">
-
-
-<header>
-
-<h1>htemulator</h1>
-
-
-<input 
-id="search"
-placeholder="Search games..."
->
-
-
-</header>
-
-
-
-<h2>Game Library</h2>
-
-
-<div id="games">
-
-Loading games...
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-<!-- GAME PLAYER -->
-
-<div id="player" style="display:none;">
-
-
-<button onclick="closeGame()">
-
-← Back
-
-</button>
-
-
-
-<h2 id="gameTitle"></h2>
-
-
-
-<iframe 
-id="gameFrame"
-allowfullscreen>
-</iframe>
-
-
-
-</div>
-
-
-
-
-
-<script src="script.js"></script>
-
-
-
-
-
-<!-- FIREBASE GOOGLE LOGIN -->
-
 <script type="module">
-
 
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 
 import {
-
 getAuth,
-
 GoogleAuthProvider,
-
 signInWithPopup,
-
-onAuthStateChanged
-
+onAuthStateChanged,
+signOut
 }
-
 from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
-
-
 
 
 
@@ -158,8 +35,6 @@ measurementId: "G-5EYLCKLR91"
 
 
 
-
-
 const app = initializeApp(firebaseConfig);
 
 
@@ -167,6 +42,20 @@ const auth = getAuth(app);
 
 
 const provider = new GoogleAuthProvider();
+
+
+
+
+
+const whitelist = [
+
+"pandaporg359@gmail.com",
+
+"anti.s.creator@gmail.com"
+
+];
+
+
 
 
 
@@ -180,13 +69,39 @@ document
 try{
 
 
-await signInWithPopup(
+const result = await signInWithPopup(
 auth,
 provider
 );
 
 
+
+const user = result.user;
+
+
+
+if(whitelist.includes(user.email)){
+
+
 showLauncher();
+
+
+}
+
+else{
+
+
+document
+.getElementById("loginMessage")
+.innerText =
+"Your Google account is not whitelisted.";
+
+
+await signOut(auth);
+
+
+}
+
 
 
 }
@@ -215,10 +130,14 @@ error.message;
 
 
 
+
 onAuthStateChanged(auth,(user)=>{
 
 
 if(user){
+
+
+if(whitelist.includes(user.email)){
 
 
 showLauncher();
@@ -226,8 +145,20 @@ showLauncher();
 
 }
 
+else{
+
+
+signOut(auth);
+
+
+}
+
+
+}
+
 
 });
+
 
 
 
@@ -253,8 +184,3 @@ document
 
 
 </script>
-
-
-</body>
-
-</html>
