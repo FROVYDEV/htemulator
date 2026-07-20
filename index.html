@@ -23,7 +23,6 @@
 
 <h2>Login</h2>
 
-
 <button id="googleLogin">
 Sign in with Google
 </button>
@@ -40,7 +39,7 @@ Sign in with Google
 
 <!-- GAME LAUNCHER -->
 
-<div id="launcher">
+<div id="launcher" style="display:none;">
 
 
 <header>
@@ -75,9 +74,10 @@ Loading games...
 
 
 
+
 <!-- GAME PLAYER -->
 
-<div id="player">
+<div id="player" style="display:none;">
 
 
 <button onclick="closeGame()">
@@ -109,12 +109,14 @@ allowfullscreen>
 
 
 
+
+
 <!-- FIREBASE GOOGLE LOGIN -->
 
 <script type="module">
 
 
-import { initializeApp } 
+import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 
@@ -175,7 +177,7 @@ document
 .onclick = async function(){
 
 
-try {
+try{
 
 
 await signInWithPopup(
