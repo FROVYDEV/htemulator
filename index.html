@@ -3,7 +3,7 @@
 
 <head>
 
-<title>TEST123</title>
+<title>htemulator</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -24,21 +24,8 @@
 <h2>Login</h2>
 
 
-<input 
-id="username"
-placeholder="Username"
->
-
-
-<input 
-id="password"
-type="password"
-placeholder="Password"
->
-
-
-<button onclick="login()">
-Login
+<button id="googleLogin">
+Sign in with Google
 </button>
 
 
@@ -117,7 +104,153 @@ allowfullscreen>
 
 
 
+
 <script src="script.js"></script>
+
+
+
+<!-- FIREBASE GOOGLE LOGIN -->
+
+<script type="module">
+
+
+import { initializeApp } 
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+
+import {
+
+getAuth,
+
+GoogleAuthProvider,
+
+signInWithPopup,
+
+onAuthStateChanged
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+
+
+
+
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyCsXrTr4G992g9b-q9g7IoXTCgSPjkuIls",
+
+authDomain: "htemulator-592b8.firebaseapp.com",
+
+projectId: "htemulator-592b8",
+
+storageBucket: "htemulator-592b8.firebasestorage.app",
+
+messagingSenderId: "530564298763",
+
+appId: "1:530564298763:web:8b1bd4c4662fb25141ef0e",
+
+measurementId: "G-5EYLCKLR91"
+
+};
+
+
+
+
+
+const app = initializeApp(firebaseConfig);
+
+
+const auth = getAuth(app);
+
+
+const provider = new GoogleAuthProvider();
+
+
+
+
+
+document
+.getElementById("googleLogin")
+.onclick = async function(){
+
+
+try {
+
+
+await signInWithPopup(
+auth,
+provider
+);
+
+
+showLauncher();
+
+
+}
+
+
+catch(error){
+
+
+console.error(error);
+
+
+document
+.getElementById("loginMessage")
+.innerText =
+error.message;
+
+
+}
+
+
+};
+
+
+
+
+
+
+
+onAuthStateChanged(auth,(user)=>{
+
+
+if(user){
+
+
+showLauncher();
+
+
+}
+
+
+});
+
+
+
+
+
+
+
+function showLauncher(){
+
+
+document
+.getElementById("login")
+.style.display="none";
+
+
+document
+.getElementById("launcher")
+.style.display="block";
+
+
+}
+
+
+
+</script>
 
 
 </body>
