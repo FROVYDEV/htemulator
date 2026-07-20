@@ -1,17 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>htemulator</title>
+
+<link rel="stylesheet" href="style.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+
+<body>
+
+
+<!-- LOGIN -->
+
+<div id="login">
+
+<h1>htemulator</h1>
+
+<h2>Login</h2>
+
+<button id="googleLogin">
+Sign in with Google
+</button>
+
+<p id="loginMessage"></p>
+
+</div>
+
+
+
+
+<!-- LAUNCHER -->
+
+<div id="launcher" style="display:none;">
+
+
+<header>
+
+<h1>htemulator</h1>
+
+<input 
+id="search"
+placeholder="Search games..."
+>
+
+</header>
+
+
+
+<h2>Game Library</h2>
+
+
+<div id="games">
+
+Loading games...
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- GAME PLAYER -->
+
+<div id="player" style="display:none;">
+
+
+<button onclick="closeGame()">
+
+← Back
+
+</button>
+
+
+<h2 id="gameTitle"></h2>
+
+
+<iframe
+id="gameFrame"
+allowfullscreen>
+</iframe>
+
+
+</div>
+
+
+
+
+
+<!-- GAME LOADER -->
+
+<script src="script.js"></script>
+
+
+
+
+
+<!-- FIREBASE LOGIN -->
+
 <script type="module">
+
 
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 
 import {
+
 getAuth,
+
 GoogleAuthProvider,
+
 signInWithPopup,
+
 onAuthStateChanged,
+
 signOut
+
 }
+
 from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+
+
 
 
 
@@ -37,9 +154,13 @@ measurementId: "G-5EYLCKLR91"
 
 const app = initializeApp(firebaseConfig);
 
+
 const auth = getAuth(app);
 
+
 const provider = new GoogleAuthProvider();
+
+
 
 
 
@@ -57,23 +178,9 @@ const whitelist = [
 
 function showLauncher(){
 
-const login = document.getElementById("login");
+document.getElementById("login").style.display="none";
 
-const launcher = document.getElementById("launcher");
-
-
-if(login){
-
-login.style.display = "none";
-
-}
-
-
-if(launcher){
-
-launcher.style.display = "block";
-
-}
+document.getElementById("launcher").style.display="block";
 
 }
 
@@ -81,13 +188,11 @@ launcher.style.display = "block";
 
 
 
-const googleLogin = document.getElementById("googleLogin");
+const button = document.getElementById("googleLogin");
 
 
-if(googleLogin){
 
-
-googleLogin.onclick = async function(){
+button.onclick = async ()=>{
 
 
 try{
@@ -114,15 +219,8 @@ showLauncher();
 else{
 
 
-const message = document.getElementById("loginMessage");
-
-
-if(message){
-
-message.innerText =
-"Your Google account is not whitelisted.";
-
-}
+document.getElementById("loginMessage").innerText =
+"Account not whitelisted.";
 
 
 await signOut(auth);
@@ -133,30 +231,20 @@ await signOut(auth);
 
 }
 
-
 catch(error){
 
 
 console.error(error);
 
 
-const message = document.getElementById("loginMessage");
-
-
-if(message){
-
-message.innerText = error.message;
-
-}
+document.getElementById("loginMessage").innerText =
+error.message;
 
 
 }
 
 
 };
-
-
-}
 
 
 
@@ -167,24 +255,10 @@ message.innerText = error.message;
 onAuthStateChanged(auth,(user)=>{
 
 
-if(user){
-
-
-if(whitelist.includes(user.email)){
+if(user && whitelist.includes(user.email)){
 
 
 showLauncher();
-
-
-}
-
-else{
-
-
-signOut(auth);
-
-
-}
 
 
 }
@@ -193,4 +267,10 @@ signOut(auth);
 });
 
 
+
 </script>
+
+
+</body>
+
+</html>
