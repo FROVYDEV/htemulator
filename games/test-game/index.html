@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Placeholder Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        #game-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            background-color: #fff;
+            border: 2px solid #333;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        #target {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #ff4757;
+            border-radius: 4px;
+            cursor: pointer;
+            top: 180px;
+            left: 180px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #2ed573;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #26af5f;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Catch the Square!</h1>
+    <p>Score: <span id="score">0</span></p>
+    <button id="start-btn">Start Game</button>
+
+    <div id="game-container">
+        <div id="target"></div>
+    </div>
+
+    <script>
+        const target = document.getElementById('target');
+        const scoreDisplay = document.getElementById('score');
+        const startBtn = document.getElementById('start-btn');
+        const container = document.getElementById('game-container');
+
+        let score = 0;
+        let gameActive = false;
+
+        // Function to move the square to a random position
+        function moveSquare() {
+            if (!gameActive) return;
+
+            // Calculate max available space inside the container
+            const maxX = container.clientWidth - target.clientWidth;
+            const maxY = container.clientHeight - target.clientHeight;
+
+            // Generate random coordinates
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            // Apply new coordinates
+            target.style.left = randomX + 'px';
+            target.style.top = randomY + 'px';
+        }
+
+        // Event listener for clicking the square
+        target.addEventListener('click', () => {
+            if (gameActive) {
+                score++;
+                scoreDisplay.textContent = score;
+                moveSquare();
+            }
+        });
+
+        // Event listener for the start button
+        startBtn.addEventListener('click', () => {
+            score = 0;
+            scoreDisplay.textContent = score;
+            gameActive = true;
+            startBtn.textContent = "Reset Game";
+            moveSquare();
+        });
+    </script>
+
+</body>
+</html>
